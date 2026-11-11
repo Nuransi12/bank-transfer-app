@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Transaction History</title>
+</head>
+<body>
+    <div style="margin: 20px;">
+        <h2>Transaction History for Account: <span th:text="${customer.accountNumber}"></span></h2>
+        <p><strong>Name:</strong> <span th:text="${customer.fullName}"></span></p>
+        <p><strong>Current Balance:</strong> LKR <span th:text="${customer.balance}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+
+        <br>
+        <a href="/">Back to Dashboard</a>
+
+        <hr>
+
+        <h3>Transactions</h3>
+        <table border="1" cellpadding="8">
+            <thead>
+                
+                <tr>
+                    <th>ID</th>
+                    <th>From Account</th>
+                    <th>To Account</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tx : ${history}">
+                    <td th:text="${tx.id}"></td>
+                    <td th:text="${tx.fromAccount}"></td>
+                    <td th:text="${tx.toAccount}"></td>
+                    <td th:text="${tx.amount}"></td>
+                    <td th:text="${tx.status}" th:style="${tx.status.name() == 'SUCCESS'} ? 'color:green;' : 'color:red;'"></td>
+                    <td th:text="${tx.description}"></td>
+                    <td th:text="${tx.createdAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
