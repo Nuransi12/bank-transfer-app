@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
+    private static final String FEE_ACCOUNT_NUMBER = "999999";
+
     private final CustomerRepository customerRepository;
 
     @Override
@@ -35,6 +37,15 @@ public class DataLoader implements CommandLineRunner {
                     .fullName("Saman Fernando")
                     .balance(new BigDecimal("10000.00"))
                     .email("saman@gmail.com")
+                    .build());
+        }
+
+        if (customerRepository.getByAccountNumber(FEE_ACCOUNT_NUMBER).isEmpty()) {
+            customerRepository.save(Customer.builder()
+                    .accountNumber(FEE_ACCOUNT_NUMBER)
+                    .fullName("Bank Fee Account")
+                    .balance(new BigDecimal("0.00"))
+                    .email("bank-fees@bank.local")
                     .build());
         }
     }

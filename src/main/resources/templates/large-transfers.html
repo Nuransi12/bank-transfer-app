@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Large Transfers</title>
+</head>
+<body>
+    <div style="margin: 20px;">
+        <h2>Transfers above LKR <span th:text="${min}"></span></h2>
+        <a href="/">Back to Dashboard</a>
+
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>From Account</th>
+                    <th>To Account</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tx : ${transfers}">
+                    <td th:text="${tx.id}"></td>
+                    <td th:text="${tx.fromAccount}"></td>
+                    <td th:text="${tx.toAccount}"></td>
+                    <td th:text="${tx.amount}"></td>
+                    <td th:text="${tx.status}"></td>
+                    <td th:text="${tx.description}"></td>
+                    <td th:text="${tx.createdAt}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(transfers)}">
+                    <td colspan="7">No transfers found above this amount.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
